@@ -1,0 +1,28 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-6">
+            <h4>Crea una nueva marca</h4>
+            <form action="" method="post">
+                {{ formulario.hidden_tag() }}
+                
+                {{formulario.nombre}}
+                {{ formulario.submit }}
+            </form>
+        </div>
+        <div class="col-6">
+            <h4>Listado de Marcas</h4>
+            {% for marca in marcas %}
+            <li>
+                <a href="/marca/{{marca.id}}/vehiculos"> {{marca.nombre}} </a> <a href="/marca/{{marca.id}}/editar">Editar</a>
+            </li>
+            {% endfor %}
+        </div>
+    
+    </div>
+</div>
+    
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-6">
+            <h4>Crea una nuevo tipo</h4>
+            <form action="" method="post">
+                {{ formulario.hidden_tag() }}
+                
+                {{formulario.nombre}}
+                {{ formulario.submit }}
+            </form>
+        </div>
+        <div class="col-6">
+            <h4>Listado de Tipos</h4>
+            {% for tipo in tipos %}
+                {{tipo.nombre}}
+            {% endfor %}
+        </div>
+    
+    </div>
+</div>
+    
+{% endblock %}
