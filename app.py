@@ -49,27 +49,38 @@ def index():
 @app.route("/users", methods=['POST', 'GET'])
 @jwt_required()
 def users():
+    print(get_jwt())
     if request.method == 'POST':
-        data = request.get_json()
-        username = data.get('nombre_usuario')
-        password = data.get('password')
+        aditional_data=get_jwt()
+        administrador = aditional_data.get('administrador')
+        if administrador is True:
+            data = request.get_json()
+            username = data.get('nombre_usuario')
+            password = data.get('password')
 
-        password_hasheada = generate_password_hash(
-            password = password,
-            method = 'pbkdf2',
-            salt_length = 8,
-        )
-        print(password_hasheada)
+            password_hasheada = generate_password_hash(
+                password = password,
+                method = 'pbkdf2',
+                salt_length = 8,
+            )
 
-        try:
-            nuevoUsuario = User(username=username, password=password_hasheada)
+            try:
+                nuevoUsuario = User(username=username, password=password_hasheada)
 
-            db.session.add(nuevoUsuario)
-            db.session.commit()
-            return jsonify({"message": "Usuario Creado"})
-        except:
-            return jsonify({"message": "Error al crear el usuario"})
-    return jsonify({"usuario creado": "listado"})
+                db.session.add(nuevoUsuario)
+                db.session.commit()
+                return jsonify({"message": "Usuario Creado"})
+            except:
+                return jsonify({"message": "Error al crear el usuario"})
+        return jsonify(Mensaje = "usted no esta habilitado para crear usuario")
+    usuarios = User.query.all()
+    list = []
+    for usuario in usuarios:
+        list.append(dict(username = usuario.username,
+                         is_admin = usuario.is_admin,
+                         id = usuario.id
+                         ))
+    return jsonify(list)
     
 
 @app.route("/login", methods=['POST'])
@@ -83,7 +94,10 @@ def login():
     if usuario and check_password_hash(pwhash=usuario.password, password=password):
         access_token = create_access_token(
             identity=username,
-            expires_delta=timedelta(minutes=3)
+            expires_delta=timedelta(minutes=10),
+            additional_claims=dict(
+                administrador = usuario.is_admin
+            )
         )
         return jsonify({"mensaje":f"Token {access_token}"})
     return jsonify({"mensaje": "no logueado"})

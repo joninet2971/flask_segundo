@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/joninet/Documentos/git_itec/segundo_unificado/entorno"
+set -gx VIRTUAL_ENV "/home/joninet/Documentos/git_itec/flask_segundo/entorno"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

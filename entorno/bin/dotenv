@@ -1,4 +1,4 @@
-#!/home/joninet/Documentos/git_itec/segundo_unificado/entorno/bin/python3
+#!/home/joninet/Documentos/git_itec/flask_segundo/entorno/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
