@@ -1,8 +1,6 @@
 from app import ma
 from models import User, Tipo, Marca, Vehiculo
 
-from models import User
-
 class UserSchema(ma.SQLAlchemySchema):
     class Meta:
         model = User
@@ -22,13 +20,13 @@ class MarcaSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Marca
 
-    username = ma.auto_field()
+    nombre = ma.auto_field()
 
 class TipoSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Tipo
 
-    username = ma.auto_field()
+    nombre = ma.auto_field()
 
 class VehiculosSchema(ma.SQLAlchemySchema):
     class Meta:
