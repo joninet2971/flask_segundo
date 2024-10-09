@@ -13,6 +13,6 @@ class UserSchema(ma.SQLAlchemySchema):
 
 class MinimalUserSchema(ma.SQLAlchemySchema):
     class Meta:
-        model : User
+        model = User
 
     username = ma.auto_field()
